@@ -1,6 +1,6 @@
 {
-    "name": "morphp/medas-placeholder",
-    "description": "Medas placeholder",
+    "name": "morphp/medas-image-manager",
+    "description": "Medas image manager",
     "authors": [
         {
             "name": "Patrick Morpey",
@@ -15,12 +15,13 @@
         "morphp/medas-config-manager": "dev-dev"
     },
     "require-dev": {
+        "morphp/medas-cache": "dev-dev",
         "phpunit/phpunit": "^9.5"
     },
     "autoload": {
         "psr-4": {
-            "Medas\\Placeholder\\": "src/",
-            "Medas\\PlaceholderTest\\": "tests/"
+            "Medas\\ImageManager\\": "src/",
+            "Medas\\ImageManagerTest\\": "tests/"
         }
     }
 }

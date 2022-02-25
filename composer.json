@@ -12,7 +12,9 @@
     "prefer-stable": true,
     "require": {
         "morphp/medas-service-manager": "dev-dev",
-        "morphp/medas-config-manager": "dev-dev"
+        "morphp/medas-config-manager": "dev-dev",
+        "ext-gd": "*",
+        "ext-exif": "*"
     },
     "require-dev": {
         "morphp/medas-cache": "dev-dev",

@@ -48,6 +48,9 @@ class ImageManager
             case IMAGETYPE_WBMP:
                 return imagecreatefromwbmp($fileName) ?: null;
 
+            case IMAGETYPE_WEBP:
+                return imagecreatefromwebp($fileName) ?: null;
+
             case IMAGETYPE_BMP:
                 throw new Exceptions\CannotReadBmpFileException($fileName);
 

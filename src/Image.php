@@ -35,6 +35,6 @@ class Image
         ob_start();
         imagepng($this->resource);
 
-        return ob_get_contents();
+        return ob_get_clean();
     }
 }

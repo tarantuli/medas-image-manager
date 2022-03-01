@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Medas\ImageManager;
 
 use Medas\Core\FileEntity;
+use Medas\Core\ThumbnailMaker;
 use Medas\ServiceManager\Attributes\Service;
 use Medas\ServiceManager\Interfaces\Cache;
 
 #[Service]
-class ThumbnailMaker implements \Medas\Core\ThumbnailMaker
+class CroppedThumbnailMaker implements ThumbnailMaker
 {
     public function __construct(
         private Cache        $cache,
@@ -24,7 +25,7 @@ class ThumbnailMaker implements \Medas\Core\ThumbnailMaker
             return $file;
         }
 
-        return $this->cache->get([$file->contentHash(), $width, $height], function () use ($file, $width, $height) {
+        return $this->cache->get([$this::class, $file->contentHash(), $width, $height], function () use ($file, $width, $height) {
             return $this->create($file, $width, $height);
         });
     }

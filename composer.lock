@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2699dddc509ebac1110c5d9026227911",
+    "content-hash": "2afaa5104217355e77c2dcaf79763817",
     "packages": [
         {
             "name": "graham-campbell/result-type",
@@ -165,12 +165,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:tarantuli/medas-core.git",
-                "reference": "063a5b2230ec91656b85eef5c1eccb7414ae5928"
+                "reference": "bceab8edaefcc81631a1d3d6386b863c066faf74"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tarantuli/medas-core/zipball/063a5b2230ec91656b85eef5c1eccb7414ae5928",
-                "reference": "063a5b2230ec91656b85eef5c1eccb7414ae5928",
+                "url": "https://api.github.com/repos/tarantuli/medas-core/zipball/bceab8edaefcc81631a1d3d6386b863c066faf74",
+                "reference": "bceab8edaefcc81631a1d3d6386b863c066faf74",
                 "shasum": ""
             },
             "require": {
@@ -203,7 +203,7 @@
                 "source": "https://github.com/tarantuli/medas-core/tree/dev",
                 "issues": "https://github.com/tarantuli/medas-core/issues"
             },
-            "time": "2022-02-25T09:54:47+00:00"
+            "time": "2022-02-25T14:59:22+00:00"
         },
         {
             "name": "morphp/medas-file-system",
@@ -878,12 +878,12 @@
             },
             "type": "library",
             "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\String\\": ""
-                },
                 "files": [
                     "Resources/functions.php"
                 ],
+                "psr-4": {
+                    "Symfony\\Component\\String\\": ""
+                },
                 "exclude-from-classmap": [
                     "/Tests/"
                 ]
@@ -3152,7 +3152,10 @@
     },
     "prefer-stable": true,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "ext-gd": "*",
+        "ext-exif": "*"
+    },
     "platform-dev": [],
     "plugin-api-version": "2.2.0"
 }

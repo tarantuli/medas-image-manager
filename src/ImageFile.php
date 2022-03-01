@@ -32,7 +32,7 @@ class ImageFile implements FileEntity
 
     public function mimetype(): string
     {
-        return 'images/png';
+        return 'image/png';
     }
 
     public function content(): string

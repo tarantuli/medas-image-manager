@@ -10,7 +10,7 @@ use Medas\ServiceManager\Attributes\Service;
 use Medas\ServiceManager\Cache\CacheManager;
 
 #[Service]
-class CroppedThumbnailMaker implements ThumbnailMaker
+class ResizedThumbnailMaker implements ThumbnailMaker
 {
     public function __construct(
         private CacheManager $cacheManager,
@@ -41,31 +41,34 @@ class CroppedThumbnailMaker implements ThumbnailMaker
             return $file;
         }
 
+        // Always the same
+        $sourceWidth = $currentWidth;
+        $sourceHeight = $currentHeight;
+        $sourceX = 0;
+        $sourceY = 0;
+
         if ($currentWidth / $currentHeight > $targetWidth / $targetHeight) {
             // The source is flatter than the target
-            $sourceWidth = (int) round($currentHeight * $targetWidth / $targetHeight);
-            $sourceHeight = $currentHeight;
-            $sourceX = (int) round(($currentWidth - $sourceWidth) / 2);
-            $sourceY = 0;
+            $destinationX = 0;
+            $destinationY = (int) round(($targetHeight - $sourceHeight * $targetWidth / $sourceWidth) / 2);
+            $destinationWidth = $targetWidth;
+            $destinationHeight = (int) round($sourceHeight * $targetWidth / $sourceWidth);
         }
         else {
             // The source is taller than the target
-            $sourceHeight = (int) round($currentWidth * $targetHeight / $targetWidth);
-            $sourceWidth = $currentWidth;
-            $sourceX = 0;
-            $sourceY = (int) round(($currentHeight - $sourceHeight) / 2);
+            $destinationX = (int) round(($targetWidth - $sourceWidth * $targetHeight / $sourceHeight) / 2);
+            $destinationY = 0;
+            $destinationWidth = (int) round($sourceWidth * $targetHeight / $sourceHeight);
+            $destinationHeight = $targetHeight;
         }
-
-        // Always the same
-        $targetX = 0;
-        $targetY = 0;
 
         // The actual cut
         $targetResource = $this->imageManager->create($targetWidth, $targetHeight);
+        $targetResource->makeTransparent();
         $targetResource->copy(
             $source,
-            $targetX, $targetY, $sourceX, $sourceY,
-            $targetWidth, $targetHeight, $sourceWidth, $sourceHeight
+            $destinationX, $destinationY, $sourceX, $sourceY,
+            $destinationWidth, $destinationHeight, $sourceWidth, $sourceHeight
         );
 
         return new ImageFile($targetResource);

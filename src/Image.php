@@ -30,6 +30,13 @@ class Image
         imagecopyresampled($this->resource, $source->resource, $x1, $y1, $x0, $y0, $w1, $h1, $w0, $h0);
     }
 
+    public function makeTransparent(): void
+    {
+        imagefill($this->resource, 0, 0,
+            imagecolorallocatealpha($this->resource, 0, 0, 0, 127)
+        );
+    }
+
     public function toPng(): string
     {
         ob_start();

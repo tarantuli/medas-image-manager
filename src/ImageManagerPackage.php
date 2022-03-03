@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Medas\ImageManager;
 
+use Medas\FileSystem\FileSystemPackage;
 use Medas\ServiceManager\{AsSingleton, BasePackage};
 
 class ImageManagerPackage extends BasePackage
@@ -13,6 +14,7 @@ class ImageManagerPackage extends BasePackage
     public function dependencies(): array
     {
         return $this->dependenciesByClass([
+            FileSystemPackage::class,
         ]);
     }
 

@@ -17,7 +17,7 @@ class CroppedThumbnailMakerTest extends TestCase
         $thumbnail = $this->getThumbnail(100, 100);
 
         self::assertEquals(
-            file_get_contents(__DIR__ . '/../MockUps/pino-thumbnail-100x100.png'),
+            file_get_contents(__DIR__ . '/../MockUps/pino-cropped-thumbnail-100x100.png'),
             $thumbnail->content()
         );
     }
@@ -39,7 +39,7 @@ class CroppedThumbnailMakerTest extends TestCase
         $thumbnail = $this->getThumbnail(300, 100);
 
         self::assertEquals(
-            file_get_contents(__DIR__ . '/../MockUps/pino-thumbnail-300x100.png'),
+            file_get_contents(__DIR__ . '/../MockUps/pino-cropped-thumbnail-300x100.png'),
             $thumbnail->content()
         );
     }
@@ -49,7 +49,7 @@ class CroppedThumbnailMakerTest extends TestCase
         $thumbnail = $this->getThumbnail(100, 300);
 
         self::assertEquals(
-            file_get_contents(__DIR__ . '/../MockUps/pino-thumbnail-100x300.png'),
+            file_get_contents(__DIR__ . '/../MockUps/pino-cropped-thumbnail-100x300.png'),
             $thumbnail->content()
         );
     }

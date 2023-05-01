@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Medas\ImageManager;
 
-use Medas\ServiceManager\Attributes\Service;
+use Medas\Core\Attributes\Service;
 
 #[Service]
 class ColorManager
@@ -87,7 +87,7 @@ class ColorManager
         return $color;
     }
 
-    public function setRed(Color $color, $red)
+    public function setRed(Color $color, $red): void
     {
         if ($red < 0.0 || $red > 1.0) {
             throw new Exceptions\InvalidValueException($red, 'color value');
@@ -96,7 +96,7 @@ class ColorManager
         $color->red = $red;
     }
 
-    public function setGreen(Color $color, float $green)
+    public function setGreen(Color $color, float $green): void
     {
         if ($green < 0.0 || $green > 1.0) {
             throw new Exceptions\InvalidValueException($green, 'color value');
@@ -114,7 +114,7 @@ class ColorManager
         $color->blue = $blue;
     }
 
-    public function setOpacity(Color $color, float $opacity)
+    public function setOpacity(Color $color, float $opacity): void
     {
         if ($opacity < 0.0 || $opacity > 1.0) {
             throw new Exceptions\InvalidValueException($opacity, 'color value');
@@ -281,9 +281,9 @@ class ColorManager
         }
 
         $hvar1 = 2 * $luminosity - $hvar2;
-        $color->red = self::HUEVarsToIntensity($hvar1, $hvar2, $hue + 1 / 3);
-        $color->green = self::HUEVarsToIntensity($hvar1, $hvar2, $hue);
-        $color->blue = self::HUEVarsToIntensity($hvar1, $hvar2, $hue - 1 / 3);
+        $color->red = self::hueVarsToIntensity($hvar1, $hvar2, $hue + 1 / 3);
+        $color->green = self::hueVarsToIntensity($hvar1, $hvar2, $hue);
+        $color->blue = self::hueVarsToIntensity($hvar1, $hvar2, $hue - 1 / 3);
     }
 
     public function isNegligible(float $value): bool

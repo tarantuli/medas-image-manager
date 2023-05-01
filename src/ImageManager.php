@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Medas\ImageManager;
 
+use Medas\Core\Attributes\Service;
 use Medas\FileSystem\TemporaryFiles;
-use Medas\ServiceManager\Attributes\Service;
 
 #[Service]
 class ImageManager
 {
     public function __construct(
-        private TemporaryFiles $temporaryFiles
+        private readonly TemporaryFiles $temporaryFiles
     )
     {
     }

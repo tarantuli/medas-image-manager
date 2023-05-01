@@ -6,7 +6,7 @@ namespace Medas\ImageManager;
 
 class Image
 {
-    public function __construct(private \GdImage $resource)
+    public function __construct(private readonly \GdImage $resource)
     {
     }
 
@@ -25,7 +25,7 @@ class Image
         return imagecolorsforindex($this->resource, imagecolorat($this->resource, $x, $y));
     }
 
-    public function copy(Image $source, int $x1, int $y1, int $x0, int $y0, int $w1, int $h1, int $w0, int $h0)
+    public function copy(Image $source, int $x1, int $y1, int $x0, int $y0, int $w1, int $h1, int $w0, int $h0): void
     {
         imagecopyresampled($this->resource, $source->resource, $x1, $y1, $x0, $y0, $w1, $h1, $w0, $h0);
     }

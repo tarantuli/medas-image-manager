@@ -2,4 +2,17 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/bootstrap.php';
+use Medas\ImageManager\ImageManagerPackage;
+use Medas\ServiceManager\{ServiceConfig, ServiceManager};
+
+chdir(__DIR__);
+
+new ServiceManager(function (): ServiceConfig {
+    $config = new ServiceConfig();
+
+    $config->addPackages([
+        ImageManagerPackage::instance(),
+    ]);
+
+    return $config;
+});

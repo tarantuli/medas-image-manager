@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Medas\ImageManager;
 
-use Medas\Core\FileEntity;
+use Medas\Core\Interfaces\FileEntity;
 
 class ImageFile implements FileEntity
 {

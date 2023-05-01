@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Medas\ImageManagerTest\Functional;
 
-use Medas\Core\FileEntity;
-use Medas\ImageManager\ResizedThumbnailMaker;
+use Medas\Core\Interfaces\FileEntity;
+use Medas\ImageManager\CroppedThumbnailMaker;
 use Medas\ImageManager\ImageFile;
 use Medas\ImageManager\ImageManager;
 use PHPUnit\Framework\TestCase;
@@ -24,7 +24,7 @@ class CroppedThumbnailMakerTest extends TestCase
 
     private function getThumbnail(int $width, int $height): FileEntity
     {
-        $maker = service(ResizedThumbnailMaker::class);
+        $maker = service(CroppedThumbnailMaker::class);
         return $maker->get($this->getTestSource(), $width, $height);
     }
 

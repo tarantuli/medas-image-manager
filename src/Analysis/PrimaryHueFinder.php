@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Medas\ImageManager\Analysis;
 
+use Medas\Core\Attributes\Service;
 use Medas\ImageManager\Color;
 use Medas\ImageManager\ColorManager;
 use Medas\ImageManager\Image;
-use Medas\ServiceManager\Attributes\Service;
 
 #[Service]
 class PrimaryHueFinder
 {
     public function __construct(
-        private ColorManager $colorManager,
+        private readonly ColorManager $colorManager,
     )
     {
     }

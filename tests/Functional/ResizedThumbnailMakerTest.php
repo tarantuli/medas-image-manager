@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Medas\ImageManagerTest\Functional;
 
-use Medas\Core\FileEntity;
+use Medas\Core\Interfaces\FileEntity;
 use Medas\ImageManager\ImageFile;
 use Medas\ImageManager\ImageManager;
 use Medas\ImageManager\ResizedThumbnailMaker;

@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Medas\ImageManager;
 
-use Medas\Core\FileEntity;
-use Medas\Core\ThumbnailMaker;
-use Medas\ServiceManager\Attributes\Service;
+use Medas\Core\Attributes\Service;
+use Medas\Core\Interfaces\FileEntity;
+use Medas\Core\Interfaces\ThumbnailMaker;
 use Medas\ServiceManager\Cache\CacheManager;
 
 #[Service]
 class CroppedThumbnailMaker implements ThumbnailMaker
 {
     public function __construct(
-        private CacheManager $cacheManager,
-        private ImageManager $imageManager,
+        private readonly CacheManager $cacheManager,
+        private readonly ImageManager $imageManager,
     )
     {
     }

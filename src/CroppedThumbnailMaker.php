@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace Medas\ImageManager;
 
 use Medas\Core\Attributes\Service;
-use Medas\Core\Interfaces\FileEntity;
-use Medas\Core\Interfaces\ThumbnailMaker;
-use Medas\ServiceManager\Cache\CacheManager;
+use Medas\Core\Interfaces\{CacheManager, FileEntity, ThumbnailMaker};
 
 #[Service]
 class CroppedThumbnailMaker implements ThumbnailMaker

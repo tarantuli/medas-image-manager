@@ -10,9 +10,7 @@ use Medas\FileSystem\TemporaryFiles;
 #[Service]
 class ImageManager
 {
-    public function __construct(
-        private readonly TemporaryFiles $temporaryFiles
-    )
+    public function __construct(private readonly TemporaryFiles $temporaryFiles)
     {
     }
 
@@ -28,6 +26,7 @@ class ImageManager
         if ($resource === null) {
             throw new Exceptions\CannotReadFileException($fileName);
         }
+
         return new Image($resource);
     }
 
@@ -37,19 +36,24 @@ class ImageManager
 
         switch ($imageType) {
             case IMAGETYPE_GIF:
-                return imagecreatefromgif($fileName) ?: null;
+                return imagecreatefromgif($fileName) ?:
+                null;
 
             case IMAGETYPE_JPEG:
-                return imagecreatefromjpeg($fileName) ?: null;
+                return imagecreatefromjpeg($fileName) ?:
+                null;
 
             case IMAGETYPE_PNG:
-                return imagecreatefrompng($fileName) ?: null;
+                return imagecreatefrompng($fileName) ?:
+                null;
 
             case IMAGETYPE_WBMP:
-                return imagecreatefromwbmp($fileName) ?: null;
+                return imagecreatefromwbmp($fileName) ?:
+                null;
 
             case IMAGETYPE_WEBP:
-                return imagecreatefromwebp($fileName) ?: null;
+                return imagecreatefromwebp($fileName) ?:
+                null;
 
             case IMAGETYPE_BMP:
                 throw new Exceptions\CannotReadBmpFileException($fileName);
@@ -65,6 +69,7 @@ class ImageManager
 
         // Turn alpha blending off, and do tell the resource to save alpha information
         imagealphablending($resource, false);
+
         imagesavealpha($resource, true);
 
         return new Image($resource);

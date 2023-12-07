@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace Medas\ImageManager\Analysis;
 
 use Medas\Core\Attributes\Service;
-use Medas\ImageManager\Color;
-use Medas\ImageManager\ColorManager;
-use Medas\ImageManager\Image;
+use Medas\ImageManager\{Color, ColorManager, Image};
 
 #[Service]
 class PrimaryHueFinder
@@ -37,9 +35,7 @@ class PrimaryHueFinder
             for ($phi = 0; $phi < 360; $phi += 30) {
                 // Determine coordinates
                 $x = (int) ($hwidth + $hwidth * sin(2 * M_PI * ($phi + ($doStagger ? 15 : 0)) / 360) * $radius / 100);
-
-                $y = (int) ($hheight
-                    + $hheight * cos(2 * M_PI * ($phi + ($doStagger ? 15 : 0)) / 360) * $radius / 100);
+                $y = (int) ($hheight + $hheight * cos(2 * M_PI * ($phi + ($doStagger ? 15 : 0)) / 360) * $radius / 100);
 
                 // Get color information of this pixel
                 $colorInfo = $image->colorAt($x, $y);
@@ -78,13 +74,16 @@ class PrimaryHueFinder
 
         foreach ($hues as $set) {
             [$hueX, $hueY, $weight] = $set;
-
             $hueXSum += $hueX * $weight;
             $hueYSum += $hueY * $weight;
             $hueDivider += $weight;
         }
 
-        [$primaryHue, $primaryStrength] = $this->determineHueAndStrength($hueDivider, $hueXSum, $hueYSum);
+        [$primaryHue, $primaryStrength] = $this->determineHueAndStrength(
+            $hueDivider,
+            $hueXSum,
+            $hueYSum
+        );
 
         // Secondary hue
         $hueXSum = 0.0;
@@ -93,7 +92,6 @@ class PrimaryHueFinder
 
         foreach ($hues as $set) {
             [$hueX, $hueY, $weight] = $set;
-
             $hue = atan2($hueY, $hueX);
 
             if ($hue < 0) {
@@ -107,7 +105,11 @@ class PrimaryHueFinder
             $hueDivider += $weight;
         }
 
-        [$secondaryHue, $secondaryStrength] = $this->determineHueAndStrength($hueDivider, $hueXSum, $hueYSum);
+        [$secondaryHue, $secondaryStrength] = $this->determineHueAndStrength(
+            $hueDivider,
+            $hueXSum,
+            $hueYSum
+        );
 
         $aveSat = $saturationSum / $saturationDivider;
         $aveLum = $luminositySum / $luminosityDivider;
@@ -140,6 +142,7 @@ class PrimaryHueFinder
         }
 
         $primaryStrength = sqrt($hueX * $hueX + $hueY * $hueY);
+
         return [$primaryHue, $primaryStrength];
     }
 }

@@ -24,9 +24,17 @@ class ColorManager
 
     public function getRelativeLuminance(Color $color): float
     {
-        $rmod = $color->red <= .03928 ? $color->red / 12.92 : pow(($color->red + .055) / 1.055, 2.4);
-        $gmod = $color->green <= .03928 ? $color->green / 12.92 : pow(($color->green + .055) / 1.055, 2.4);
-        $bmod = $color->blue <= .03928 ? $color->blue / 12.92 : pow(($color->blue + .055) / 1.055, 2.4);
+        $rmod = $color->red <= .03928
+            ? $color->red / 12.92
+            : pow(($color->red + .055) / 1.055, 2.4);
+
+        $gmod = $color->green <= .03928
+            ? $color->green / 12.92
+            : pow(($color->green + .055) / 1.055, 2.4);
+
+        $bmod = $color->blue <= .03928
+            ? $color->blue / 12.92
+            : pow(($color->blue + .055) / 1.055, 2.4);
 
         return .2126 * $rmod + .7152 * $gmod + .0722 * $bmod;
     }

@@ -20,12 +20,12 @@ class ImageFile implements FileEntity
         return null;
     }
 
-    public function setName(?string $name): FileEntity
+    public function setName(string|null $name): FileEntity
     {
         return $this;
     }
 
-    public function name(): ?string
+    public function name(): string|null
     {
         return null;
     }

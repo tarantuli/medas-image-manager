@@ -27,19 +27,29 @@ class Image
 
     public function copy(Image $source, int $x1, int $y1, int $x0, int $y0, int $w1, int $h1, int $w0, int $h0): void
     {
-        imagecopyresampled($this->resource, $source->resource, $x1, $y1, $x0, $y0, $w1, $h1, $w0, $h0);
+        imagecopyresampled(
+            $this->resource,
+            $source->resource,
+            $x1,
+            $y1,
+            $x0,
+            $y0,
+            $w1,
+            $h1,
+            $w0,
+            $h0
+        );
     }
 
     public function makeTransparent(): void
     {
-        imagefill($this->resource, 0, 0,
-            imagecolorallocatealpha($this->resource, 0, 0, 0, 127)
-        );
+        imagefill($this->resource, 0, 0, imagecolorallocatealpha($this->resource, 0, 0, 0, 127));
     }
 
     public function toPng(): string
     {
         ob_start();
+
         imagepng($this->resource);
 
         return ob_get_clean();

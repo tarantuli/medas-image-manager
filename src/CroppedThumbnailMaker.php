@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace Medas\ImageManager;
 
-use Medas\Core\Attributes\Service;
-use Medas\Core\Interfaces\{CacheManager, FileEntity, ThumbnailMaker};
+use Medas\Core\{
+    Attributes\Service,
+    Interfaces\CacheManager,
+    Interfaces\FileEntity,
+    Interfaces\ThumbnailMaker
+};
 
 #[Service]
 class CroppedThumbnailMaker implements ThumbnailMaker
@@ -23,10 +27,11 @@ class CroppedThumbnailMaker implements ThumbnailMaker
             return $file;
         }
 
-        return $this->cacheManager->get()->get([$this::class, $file->contentHash(), $width, $height],
+        return $this->cacheManager->get()->get(
+            [$this::class, $file->contentHash(), $width, $height],
             function () use ($file, $width, $height) {
-                return $this->create($file, $width, $height);
-            });
+            return $this->create($file, $width, $height);
+        });
     }
 
     private function create(FileEntity $file, int $targetWidth, int $targetHeight): FileEntity
@@ -60,10 +65,17 @@ class CroppedThumbnailMaker implements ThumbnailMaker
 
         // The actual cut
         $targetResource = $this->imageManager->create($targetWidth, $targetHeight);
+
         $targetResource->copy(
             $source,
-            $targetX, $targetY, $sourceX, $sourceY,
-            $targetWidth, $targetHeight, $sourceWidth, $sourceHeight
+            $targetX,
+            $targetY,
+            $sourceX,
+            $sourceY,
+            $targetWidth,
+            $targetHeight,
+            $sourceWidth,
+            $sourceHeight
         );
 
         return new ImageFile($targetResource);

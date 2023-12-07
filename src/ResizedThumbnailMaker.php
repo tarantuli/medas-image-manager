@@ -29,9 +29,8 @@ readonly class ResizedThumbnailMaker implements ThumbnailMaker
 
         return $this->cacheManager->get()->get(
             [$this::class, $file->contentHash(), $width, $height],
-            function () use ($file, $width, $height) {
-            return $this->create($file, $width, $height);
-        });
+            fn () => $this->create($file, $width, $height)
+        );
     }
 
     private function create(FileEntity $file, int $targetWidth, int $targetHeight): FileEntity

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Medas\ImageManager;
 
-class Image
+readonly class Image
 {
     public function __construct(
-        private readonly \GdImage $resource,
+        public \GdImage $resource,
     )
     {
     }

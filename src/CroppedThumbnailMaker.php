@@ -12,11 +12,11 @@ use Medas\Core\{
 };
 
 #[Service]
-class CroppedThumbnailMaker implements ThumbnailMaker
+readonly class CroppedThumbnailMaker implements ThumbnailMaker
 {
     public function __construct(
-        private readonly CacheManager $cacheManager,
-        private readonly ImageManager $imageManager,
+        private CacheManager $cacheManager,
+        private ImageManager $imageManager,
     )
     {
     }

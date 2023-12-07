@@ -6,7 +6,9 @@ namespace Medas\ImageManager;
 
 class Image
 {
-    public function __construct(private readonly \GdImage $resource)
+    public function __construct(
+        private readonly \GdImage $resource,
+    )
     {
     }
 

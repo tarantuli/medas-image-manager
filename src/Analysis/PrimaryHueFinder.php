@@ -8,10 +8,10 @@ use Medas\Core\Attributes\Service;
 use Medas\ImageManager\{Color, ColorManager, Image};
 
 #[Service]
-class PrimaryHueFinder
+readonly class PrimaryHueFinder
 {
     public function __construct(
-        private readonly ColorManager $colorManager,
+        private ColorManager $colorManager,
     )
     {
     }

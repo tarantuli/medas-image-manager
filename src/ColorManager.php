@@ -7,7 +7,7 @@ namespace Medas\ImageManager;
 use Medas\Core\Attributes\Service;
 
 #[Service]
-class ColorManager
+readonly class ColorManager
 {
     // HSL constants
     public const HUE = 1;

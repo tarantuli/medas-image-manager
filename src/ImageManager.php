@@ -8,9 +8,11 @@ use Medas\Core\Attributes\Service;
 use Medas\FileSystem\TemporaryFiles;
 
 #[Service]
-class ImageManager
+readonly class ImageManager
 {
-    public function __construct(private readonly TemporaryFiles $temporaryFiles)
+    public function __construct(
+        private TemporaryFiles $temporaryFiles,
+    )
     {
     }
 

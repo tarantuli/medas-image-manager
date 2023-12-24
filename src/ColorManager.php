@@ -266,11 +266,6 @@ readonly class ColorManager
         return [$hue, $saturation, $luminosity];
     }
 
-    private function areComparable(float $value1, float $value2): bool
-    {
-        return self::isNegligible($value1 - $value2);
-    }
-
     public function setHsl(Color $color, float $hue, float $saturation, float $luminosity): void
     {
         if ($this->isNegligible($saturation)) {
@@ -297,31 +292,6 @@ readonly class ColorManager
     public function isNegligible(float $value): bool
     {
         return $value >= -.001 && $value <= +.001;
-    }
-
-    private function hueVarsToIntensity(float $var1, float $var2, float $varh): float
-    {
-        if ($varh < 0) {
-            $varh += 1;
-        }
-
-        if ($varh > 1) {
-            $varh -= 1;
-        }
-
-        if (6 * $varh < 1) {
-            return $var1 + ($var2 - $var1) * 6 * $varh;
-        }
-
-        if (2 * $varh < 1) {
-            return $var2;
-        }
-
-        if (3 * $varh < 2) {
-            return $var1 + ($var2 - $var1) * (2 / 3 - $varh) * 6;
-        }
-
-        return $var1;
     }
 
     public function getHue(Color $color): float
@@ -453,6 +423,11 @@ readonly class ColorManager
         }
     }
 
+    private function areComparable(float $value1, float $value2): bool
+    {
+        return self::isNegligible($value1 - $value2);
+    }
+
     public function toFF(float $value): string
     {
         return str_pad(dechex($this->to255($value)), 2, '0', STR_PAD_LEFT);
@@ -521,5 +496,30 @@ readonly class ColorManager
     public function weakenTransparency(Color $color, float $factor): void
     {
         $this->setTransparency($color, $factor * (1.0 - $color->opacity));
+    }
+
+    private function hueVarsToIntensity(float $var1, float $var2, float $varh): float
+    {
+        if ($varh < 0) {
+            $varh += 1;
+        }
+
+        if ($varh > 1) {
+            $varh -= 1;
+        }
+
+        if (6 * $varh < 1) {
+            return $var1 + ($var2 - $var1) * 6 * $varh;
+        }
+
+        if (2 * $varh < 1) {
+            return $var2;
+        }
+
+        if (3 * $varh < 2) {
+            return $var1 + ($var2 - $var1) * (2 / 3 - $varh) * 6;
+        }
+
+        return $var1;
     }
 }

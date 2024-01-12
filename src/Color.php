@@ -15,9 +15,9 @@ class Color
         public float $opacity = 1.0,
     )
     {
-        $this->hexString = str_pad(dechex(255 * $this->red), 2, '0', STR_PAD_LEFT)
-            . str_pad(dechex(255 * $this->green), 2, '0', STR_PAD_LEFT)
-            . str_pad(dechex(255 * $this->blue), 2, '0', STR_PAD_LEFT)
-            . str_pad(dechex(255 * $this->opacity), 2, '0', STR_PAD_LEFT);
+        $this->hexString = str_pad(dechex((int) round(255 * $this->red)), 2, '0', STR_PAD_LEFT)
+            . str_pad(dechex((int) round(255 * $this->green)), 2, '0', STR_PAD_LEFT)
+            . str_pad(dechex((int) round(255 * $this->blue)), 2, '0', STR_PAD_LEFT)
+            . str_pad(dechex((int) round(255 * $this->opacity)), 2, '0', STR_PAD_LEFT);
     }
 }

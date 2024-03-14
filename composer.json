@@ -1,6 +1,9 @@
 {
     "name": "morphp/medas-image-manager",
     "description": "Medas image manager",
+    "keywords": [
+        "media"
+    ],
     "authors": [
         {
             "name": "Patrick Morpey",

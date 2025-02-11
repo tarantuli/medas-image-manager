@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Medas\ImageManagerTest\Functional;
 
 use Medas\Core\File;
-use Medas\ImageManager\{ImageManager, ResizedThumbnailMaker};
+use Medas\ImageManager\{ImageManager, PngMaker, ResizedThumbnailMaker};
 use PHPUnit\Framework\TestCase;
 
 class ResizedThumbnailMakerTest extends TestCase
@@ -51,6 +51,6 @@ class ResizedThumbnailMakerTest extends TestCase
     {
         $image = service(ImageManager::class)->fromFile(__DIR__ . '/../MockUps/pino-333x500.jpg');
 
-        return new File($image->toPng(), mimetype: 'image/png');
+        return service(PngMaker::class)->create($image);
     }
 }

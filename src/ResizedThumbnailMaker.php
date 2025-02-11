@@ -14,6 +14,7 @@ readonly class ResizedThumbnailMaker implements ThumbnailMaker
         private CacheManager       $cacheManager,
         private ContentHashManager $contentHashManager,
         private ImageManager       $imageManager,
+        private PngMaker           $pngMaker,
     )
     {
     }
@@ -78,6 +79,6 @@ readonly class ResizedThumbnailMaker implements ThumbnailMaker
             $sourceHeight
         );
 
-        return new File($targetResource->toPng(), mimetype: 'image/png');
+        return $this->pngMaker->create($targetResource);
     }
 }

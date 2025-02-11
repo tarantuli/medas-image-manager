@@ -4,38 +4,35 @@ declare(strict_types=1);
 
 namespace Medas\ImageManager;
 
-use Medas\Core\{
-    Attributes\Service,
-    Interfaces\CacheManager,
-    Interfaces\FileEntity,
-    Interfaces\ThumbnailMaker
-};
+use Medas\Core\{Attributes\Service, File, Interfaces\CacheManager, Interfaces\ThumbnailMaker};
+use Medas\Files\ContentHashManager;
 
 #[Service]
 readonly class CroppedThumbnailMaker implements ThumbnailMaker
 {
     public function __construct(
-        private CacheManager $cacheManager,
-        private ImageManager $imageManager,
+        private CacheManager       $cacheManager,
+        private ContentHashManager $contentHashManager,
+        private ImageManager       $imageManager,
     )
     {
     }
 
-    public function get(FileEntity $file, int|null $width, int|null $height): FileEntity
+    public function get(File $file, int|null $width, int|null $height): File
     {
         if ($width === null && $height === null) {
             return $file;
         }
 
         return $this->cacheManager->get()->get(
-            [$this::class, $file->contentHash(), $width, $height],
+            [$this::class, $this->contentHashManager->get($file), $width, $height],
             fn() => $this->create($file, $width, $height),
         );
     }
 
-    private function create(FileEntity $file, int $targetWidth, int $targetHeight): FileEntity
+    private function create(File $file, int $targetWidth, int $targetHeight): File
     {
-        $source = $this->imageManager->fromContent($file->content());
+        $source = $this->imageManager->fromContent($file->content);
         $currentWidth = $source->width();
         $currentHeight = $source->height();
 
@@ -77,6 +74,6 @@ readonly class CroppedThumbnailMaker implements ThumbnailMaker
             $sourceHeight
         );
 
-        return new ImageFile($targetResource);
+        return new File($targetResource->toPng(), mimetype: 'image/png');
     }
 }

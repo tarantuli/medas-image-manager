@@ -15,6 +15,7 @@
     "prefer-stable": true,
     "require": {
         "morphp/medas-core": "dev-dev",
+        "morphp/medas-files": "dev-dev",
         "morphp/medas-file-system": "dev-dev",
         "ext-gd": "*",
         "ext-exif": "*"

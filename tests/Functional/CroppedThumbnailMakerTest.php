@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Medas\ImageManagerTest\Functional;
 
-use Medas\Core\Interfaces\FileEntity;
-use Medas\ImageManager\{CroppedThumbnailMaker, ImageFile, ImageManager};
+use Medas\Core\File;
+use Medas\ImageManager\{CroppedThumbnailMaker, ImageManager};
 use PHPUnit\Framework\TestCase;
 
 class CroppedThumbnailMakerTest extends TestCase
@@ -16,22 +16,8 @@ class CroppedThumbnailMakerTest extends TestCase
 
         self::assertEquals(
             file_get_contents(__DIR__ . '/../MockUps/pino-cropped-thumbnail-100x100.png'),
-            $thumbnail->content()
+            $thumbnail->content
         );
-    }
-
-    private function getThumbnail(int $width, int $height): FileEntity
-    {
-        $maker = service(CroppedThumbnailMaker::class);
-
-        return $maker->get($this->getTestSource(), $width, $height);
-    }
-
-    private function getTestSource(): FileEntity
-    {
-        $image = service(ImageManager::class)->fromFile(__DIR__ . '/../MockUps/pino-333x500.jpg');
-
-        return new ImageFile($image);
     }
 
     public function testCreateLandscape(): void
@@ -40,7 +26,7 @@ class CroppedThumbnailMakerTest extends TestCase
 
         self::assertEquals(
             file_get_contents(__DIR__ . '/../MockUps/pino-cropped-thumbnail-300x100.png'),
-            $thumbnail->content()
+            $thumbnail->content
         );
     }
 
@@ -50,7 +36,21 @@ class CroppedThumbnailMakerTest extends TestCase
 
         self::assertEquals(
             file_get_contents(__DIR__ . '/../MockUps/pino-cropped-thumbnail-100x300.png'),
-            $thumbnail->content()
+            $thumbnail->content
         );
+    }
+
+    private function getThumbnail(int $width, int $height): File
+    {
+        $maker = service(CroppedThumbnailMaker::class);
+
+        return $maker->get($this->getTestSource(), $width, $height);
+    }
+
+    private function getTestSource(): File
+    {
+        $image = service(ImageManager::class)->fromFile(__DIR__ . '/../MockUps/pino-333x500.jpg');
+
+        return new File($image->toPng(), mimetype: 'image/png');
     }
 }

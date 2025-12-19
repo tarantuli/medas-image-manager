@@ -10,9 +10,9 @@ use Medas\Core\Attributes\Service;
 readonly class ColorManager
 {
     // HSL constants
-    public const HUE = 1;
-    public const LUMINOSITY = 4;
-    public const SATURATION = 2;
+    public const int HUE = 1;
+    public const int LUMINOSITY = 4;
+    public const int SATURATION = 2;
 
     public function getContrast(Color $color1, Color $color2): float
     {
@@ -203,7 +203,7 @@ readonly class ColorManager
         $this->setHsl($color, $hue, $saturation, $luminosity);
     }
 
-    public function getHsl(Color $color, int $returnValue = null): array|float|int
+    public function getHsl(Color $color, int|null $returnValue = null): array|float|int
     {
         $min = min($color->red, $color->green, $color->blue);
         $max = max($color->red, $color->green, $color->blue);

@@ -1,33 +1,32 @@
 {
-    "name": "morphp/medas-image-manager",
-    "description": "Medas image manager",
-    "keywords": [
-        "media"
-    ],
-    "authors": [
-        {
-            "name": "Patrick Morpey",
-            "email": "patrick@morphp.nl"
-        }
-    ],
-    "type": "library",
-    "minimum-stability": "dev",
-    "prefer-stable": true,
-    "require": {
-        "morphp/medas-core": "dev-dev",
-        "morphp/medas-files": "dev-dev",
-        "morphp/medas-file-system": "dev-dev",
-        "ext-gd": "*",
-        "ext-exif": "*"
-    },
-    "require-dev": {
-        "morphp/medas-service-manager": "dev-dev",
-        "phpunit/phpunit": "^9.5"
-    },
-    "autoload": {
-        "psr-4": {
-            "Medas\\ImageManager\\": "src/",
-            "Medas\\ImageManagerTest\\": "tests/"
-        }
+  "name": "morphp/medas-image-manager",
+  "description": "Medas image manager",
+  "version": "v2.0.0",
+  "keywords": [
+    "media"
+  ],
+  "authors": [
+    {
+      "name": "Patrick Morpey",
+      "email": "patrick@morphp.nl"
     }
+  ],
+  "type": "library",
+  "require": {
+    "morphp/medas-core": "^2",
+    "morphp/medas-files": "^2",
+    "morphp/medas-file-system": "^2",
+    "ext-gd": "*",
+    "ext-exif": "*"
+  },
+  "require-dev": {
+    "morphp/medas-service-manager": "^2",
+    "phpunit/phpunit": "^9.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Medas\\ImageManager\\": "src/",
+      "Medas\\ImageManagerTest\\": "tests/"
+    }
+  }
 }

@@ -36,40 +36,26 @@ readonly class ImageManager
     {
         $imageType = exif_imagetype($fileName);
 
-        switch ($imageType) {
-            case IMAGETYPE_GIF:
-                return imagecreatefromgif($fileName) ?:
-                null;
-
-            case IMAGETYPE_JPEG:
-                return imagecreatefromjpeg($fileName) ?:
-                null;
-
-            case IMAGETYPE_PNG:
-                return imagecreatefrompng($fileName) ?:
-                null;
-
-            case IMAGETYPE_WBMP:
-                return imagecreatefromwbmp($fileName) ?:
-                null;
-
-            case IMAGETYPE_WEBP:
-                return imagecreatefromwebp($fileName) ?:
-                null;
-
-            case IMAGETYPE_BMP:
-                throw new Exceptions\CannotReadBmpFileException($fileName);
-
-            default:
-                throw new Exceptions\CannotReadFileTypeException($fileName, $imageType);
-        }
+        return match ($imageType) {
+            IMAGETYPE_GIF => imagecreatefromgif($fileName) ?: null,
+            IMAGETYPE_JPEG => imagecreatefromjpeg($fileName) ?: null,
+            IMAGETYPE_PNG => imagecreatefrompng($fileName) ?: null,
+            IMAGETYPE_WBMP => imagecreatefromwbmp($fileName) ?: null,
+            IMAGETYPE_WEBP => imagecreatefromwebp($fileName) ?: null,
+            IMAGETYPE_BMP => throw new Exceptions\CannotReadBmpFileException($fileName),
+            default => throw new Exceptions\CannotReadFileTypeException($fileName, $imageType),
+        };
     }
 
     public function create(int $width, int $height): Image
     {
         $resource = imagecreatetruecolor($width, $height);
 
-        // Turn alpha blending off, and do tell the resource to save alpha information
+        if ($resource === false) {
+            throw new Exceptions\FailedToCreateGdImageResource($width, $height);
+        }
+
+        // Turn alpha blending off, and save alpha channel information
         imagealphablending($resource, false);
 
         imagesavealpha($resource, true);

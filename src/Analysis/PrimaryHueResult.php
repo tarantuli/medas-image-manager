@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Medas\ImageManager\Analysis;
 
-class PrimaryHueResult
+readonly class PrimaryHueResult
 {
     public function __construct(
         public float $primaryHue,

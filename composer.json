@@ -1,7 +1,6 @@
 {
   "name": "morphp/medas-image-manager",
   "description": "Medas image manager",
-  "version": "v2.0.0",
   "keywords": [
     "media"
   ],
@@ -13,19 +12,24 @@
   ],
   "type": "library",
   "require": {
-    "morphp/medas-core": "^2",
-    "morphp/medas-files": "^2",
-    "morphp/medas-file-system": "^2",
+    "ext-exif": "*",
     "ext-gd": "*",
-    "ext-exif": "*"
+    "morphp/medas-core": "^3",
+    "morphp/medas-file-system": "^3",
+    "morphp/medas-files": "^3",
+    "php": "^8.4"
   },
   "require-dev": {
-    "morphp/medas-service-manager": "^2",
-    "phpunit/phpunit": "^9.5"
+    "morphp/medas-service-manager": "^3",
+    "phpunit/phpunit": "^10"
   },
   "autoload": {
     "psr-4": {
-      "Medas\\ImageManager\\": "src/",
+      "Medas\\ImageManager\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
       "Medas\\ImageManagerTest\\": "tests/"
     }
   }

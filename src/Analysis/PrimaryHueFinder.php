@@ -40,11 +40,12 @@ readonly class PrimaryHueFinder
                 // Get color information of this pixel
                 $colorInfo = $image->colorAt($x, $y);
 
+                // GD alpha is 0 (opaque) to 127 (transparent); convert to opacity 0.0–1.0
                 $color = new Color(
                     $colorInfo['red'] / 255,
                     $colorInfo['green'] / 255,
                     $colorInfo['blue'] / 255,
-                    $colorInfo['alpha']
+                    1.0 - $colorInfo['alpha'] / 127
                 );
 
                 [$hue, $saturation, $luminosity] = $this->colorManager->getHsl($color);
@@ -61,7 +62,7 @@ readonly class PrimaryHueFinder
                 $luminositySum += $luminosity;
                 $luminosityDivider += 1;
 
-                if ($radius == 0) {
+                if ($radius === 0) {
                     break;
                 }
             }
@@ -124,9 +125,9 @@ readonly class PrimaryHueFinder
         );
     }
 
-    private function determineHueAndStrength(mixed $hueDivider, float|int $hueXSum, float|int $hueYSum): array
+    private function determineHueAndStrength(float $hueDivider, float $hueXSum, float $hueYSum): array
     {
-        if ($hueDivider == 0) {
+        if (abs($hueDivider) < PHP_FLOAT_EPSILON) {
             $hueX = 1;
             $hueY = 0;
         }

@@ -15,6 +15,6 @@ class CannotReadBmpFileException extends BaseException
 
     public function pattern(): string
     {
-        return 'Cannot read BPM file %s';
+        return 'Cannot read BMP file %s';
     }
 }

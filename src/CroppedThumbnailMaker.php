@@ -4,34 +4,12 @@ declare(strict_types=1);
 
 namespace Medas\ImageManager;
 
-use Medas\Core\{Attributes\Service, File, Interfaces\CacheManager, Interfaces\ThumbnailMaker};
-use Medas\Files\ContentHashManager;
+use Medas\Core\{Attributes\Service, File, Interfaces\ThumbnailMaker};
 
 #[Service]
-readonly class CroppedThumbnailMaker implements ThumbnailMaker
+readonly class CroppedThumbnailMaker extends BaseThumbnailMaker implements ThumbnailMaker
 {
-    public function __construct(
-        private CacheManager       $cacheManager,
-        private ContentHashManager $contentHashManager,
-        private ImageManager       $imageManager,
-        private PngMaker           $pngMaker,
-    )
-    {
-    }
-
-    public function get(File $file, int|null $width, int|null $height): File
-    {
-        if ($width === null && $height === null) {
-            return $file;
-        }
-
-        return $this->cacheManager->get()->get(
-            [$this::class, $this->contentHashManager->get($file), $width, $height],
-            fn() => $this->create($file, $width, $height),
-        );
-    }
-
-    private function create(File $file, int $targetWidth, int $targetHeight): File
+    protected function create(File $file, int $targetWidth, int $targetHeight): File
     {
         $source = $this->imageManager->fromContent($file->content);
         $currentWidth = $source->width();
@@ -56,23 +34,18 @@ readonly class CroppedThumbnailMaker implements ThumbnailMaker
             $sourceY = (int) round(($currentHeight - $sourceHeight) / 2);
         }
 
-        // Always the same
-        $targetX = 0;
-        $targetY = 0;
-
-        // The actual cut
         $targetResource = $this->imageManager->create($targetWidth, $targetHeight);
 
         $targetResource->copy(
             $source,
-            $targetX,
-            $targetY,
-            $sourceX,
-            $sourceY,
-            $targetWidth,
-            $targetHeight,
-            $sourceWidth,
-            $sourceHeight
+            x1: 0,
+            y1: 0,
+            x0: $sourceX,
+            y0: $sourceY,
+            w1: $targetWidth,
+            h1: $targetHeight,
+            w0: $sourceWidth,
+            h0: $sourceHeight,
         );
 
         return $this->pngMaker->create($targetResource);

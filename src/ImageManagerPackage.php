@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Medas\ImageManager;
 
-use Medas\Core\AsSingleton;
+use Medas\Core\{AsSingleton, BasePackage};
 use Medas\FileSystem\FileSystemPackage;
 use Medas\Files\FilesPackage;
-use Medas\ServiceManager\BasePackage;
 
 class ImageManagerPackage extends BasePackage
 {

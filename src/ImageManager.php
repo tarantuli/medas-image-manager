@@ -55,7 +55,7 @@ readonly class ImageManager
             throw new Exceptions\FailedToCreateGdImageResource($width, $height);
         }
 
-        // Turn alpha blending off, and save alpha channel information
+        // Turn alpha blending off and save alpha channel information
         imagealphablending($resource, false);
 
         imagesavealpha($resource, true);

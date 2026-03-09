@@ -15,7 +15,6 @@ abstract readonly class BaseThumbnailMaker
         protected CacheManager       $cacheManager,
         protected ContentHashManager $contentHashManager,
         protected ImageManager       $imageManager,
-        protected PngMaker           $pngMaker,
     )
     {
     }

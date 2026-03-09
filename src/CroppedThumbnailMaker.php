@@ -48,6 +48,6 @@ readonly class CroppedThumbnailMaker extends BaseThumbnailMaker implements Thumb
             h0: $sourceHeight,
         );
 
-        return $this->pngMaker->create($targetResource);
+        return new File($targetResource->toPng());
     }
 }

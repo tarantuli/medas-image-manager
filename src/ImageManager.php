@@ -34,7 +34,10 @@ readonly class ImageManager
 
     private function getResource(string $fileName): \GdImage|null
     {
-        $imageType = exif_imagetype($fileName);
+        // exif_imagetype emits a notice when the file isn't an image (or is too
+        // short to sniff its header); suppress it - a non-image is a valid outcome
+        // here, handled by the match's default throw below.
+        $imageType = @exif_imagetype($fileName);
 
         return match ($imageType) {
             IMAGETYPE_GIF => imagecreatefromgif($fileName) ?: null,

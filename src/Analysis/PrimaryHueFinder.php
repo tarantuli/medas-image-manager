@@ -37,7 +37,7 @@ readonly class PrimaryHueFinder
                 $x = (int) ($hwidth + $hwidth * sin(2 * M_PI * ($phi + ($doStagger ? 15 : 0)) / 360) * $radius / 100);
                 $y = (int) ($hheight + $hheight * cos(2 * M_PI * ($phi + ($doStagger ? 15 : 0)) / 360) * $radius / 100);
 
-                // Get color information of this pixel
+                // Get colour information of this pixel
                 $colorInfo = $image->colorAt($x, $y);
 
                 // GD alpha is 0 (opaque) to 127 (transparent); convert to opacity 0.0–1.0

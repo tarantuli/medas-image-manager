@@ -57,7 +57,7 @@ readonly class PhotoService
 }
 ```
 
-Supported types: GIF, JPEG, PNG, WBMP, WebP. BMP throws `CannotReadBmpFileException`; unrecognised types throw `CannotReadFileTypeException`.
+Supported types: GIF, JPEG, PNG, WBMP, WebP. BMP throws `CannotReadBmpFileException`; unrecognised types throw `CannotReadFileTypeException` (with type `unknown` for content that isn't an image at all); a missing, unreadable or corrupt file throws `CannotReadFileException`.
 
 **Generating thumbnails:**
 
